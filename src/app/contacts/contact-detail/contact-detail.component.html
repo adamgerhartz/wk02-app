@@ -1,1 +1,37 @@
-<p>contact-detail works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading list-group-item clearfix">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 style="height:35px;" class="list-group-item-heading">{{ contact.name }}</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12" style="height:99.99px">
+            <div class="pull-left">
+              <img
+                src="{{ contact.imageUrl }}"
+                alt=""
+                class="img-responsive"
+                style="max-height: 100px">
+            </div>
+            <div class="pull-right">
+              <div class="group">
+                <a href="#" class="btn btn-info">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <label for="email">Email:</label>
+        <span id="email"> {{ contact.email }}</span>
+        <br>
+        <label for="phone">Phone:</label>
+        <span id="phone"> {{ contact.phone }}</span>
+      </div>
+    </div>
+  </div>
+</div>
