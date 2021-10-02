@@ -11,8 +11,8 @@
           <div class="col-xs-12" style="height:99.99px">
             <div class="pull-left">
               <img
-                src=""
-                alt=""
+                src="{{ contact.imageUrl }}"
+                alt="{{ contact.name }}"
                 class="img-responsive"
                 style="max-height: 100px">
             </div>
@@ -27,10 +27,10 @@
       </div>
       <div class="panel-body">
         <label for="email">Email:</label>
-        <span id="email"> </span>
+        <span id="email"> {{ contact.email }}</span>
         <br>
         <label for="phone">Phone:</label>
-        <span id="phone"> </span>
+        <span id="phone"> {{ contact.phone }}</span>
       </div>
     </div>
   </div>
