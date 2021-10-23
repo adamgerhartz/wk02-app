@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ContactsComponent } from './contacts/contacts.component';
@@ -17,6 +18,10 @@ import { MessageListComponent } from './messages/message-list/message-list.compo
 import { MessageEditComponent } from './messages/message-list/message-edit/message-edit.component';
 import { MessageItemComponent } from './messages/message-list/message-item/message-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
+import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
+import { ContactStartComponent } from './contacts/contact-start/contact-start.component';
+import { DocumentStartComponent } from './documents/document-start/document-start.component';
 
 @NgModule({
   declarations: [
@@ -33,11 +38,16 @@ import { DropdownDirective } from './shared/dropdown.directive';
     MessageListComponent,
     MessageEditComponent,
     MessageItemComponent,
-    DropdownDirective
+    DropdownDirective,
+    DocumentEditComponent,
+    ContactEditComponent,
+    ContactStartComponent,
+    DocumentStartComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
