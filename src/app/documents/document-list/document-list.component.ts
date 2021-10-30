@@ -35,6 +35,7 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       );
   }
 
+  // We do this to remove all possible memory leaks. Angular doesn't handle unsubscribing automatically on rxjs Observables like it does with built-in Observables
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
