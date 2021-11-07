@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { FormsModule } from '@angular/forms';
+import { DndModule } from 'ng2-dnd';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,11 +42,12 @@ import { DocumentStartComponent } from './documents/document-start/document-star
     DocumentEditComponent,
     ContactEditComponent,
     ContactStartComponent,
-    DocumentStartComponent
+    DocumentStartComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    DndModule.forRoot(),
     AppRoutingModule
   ],
   providers: [],
