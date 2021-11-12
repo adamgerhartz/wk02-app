@@ -22,6 +22,7 @@ import { DocumentEditComponent } from './documents/document-edit/document-edit.c
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 import { ContactStartComponent } from './contacts/contact-start/contact-start.component';
 import { DocumentStartComponent } from './documents/document-start/document-start.component';
+import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DocumentStartComponent } from './documents/document-start/document-star
     ContactEditComponent,
     ContactStartComponent,
     DocumentStartComponent,
+    ContactsFilterPipe,
   ],
   imports: [
     BrowserModule,
