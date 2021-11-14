@@ -15,6 +15,7 @@ import { ContactStartComponent } from './contacts/contact-start/contact-start.co
 import { DocumentStartComponent } from './documents/document-start/document-start.component';
 import { DocumentResolverService } from './documents/document-resolver.service';
 import { ContactResolverService } from './contacts/contact-resolver.service';
+import { MessageResolverService } from './messages/message-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/documents', pathMatch: 'full' },
@@ -24,7 +25,7 @@ const appRoutes: Routes = [
     { path: ':id', component: DocumentDetailComponent, resolve: [DocumentResolverService]},
     { path: ':id/edit', component: DocumentEditComponent, resolve: [DocumentResolverService]}
   ] },
-  { path: 'messages', component: MessageListComponent },
+  { path: 'messages', component: MessageListComponent, resolve: [MessageResolverService] },
   { path: 'contacts', component: ContactsComponent, children: [
     { path: '', component: ContactStartComponent },
     { path: 'new', component: ContactEditComponent },
