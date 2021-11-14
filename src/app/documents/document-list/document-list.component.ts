@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
+import { DataStorageService } from '../../shared/data-storage.service';
 
 @Component({
   selector: 'cms-document-list',
@@ -22,11 +23,12 @@ export class DocumentListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private documentService: DocumentService,
+    private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.documents = this.documentService.getDocuments();
+  ngOnInit() {
+    this.dataStorageService.fetchDocuments().subscribe();
     this.subscription = this.documentService.documentListChangedEvent
       .subscribe(
         (documents: Document[]) => {

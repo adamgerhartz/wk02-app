@@ -13,21 +13,23 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactStartComponent } from './contacts/contact-start/contact-start.component';
 import { DocumentStartComponent } from './documents/document-start/document-start.component';
+import { DocumentResolverService } from './documents/document-resolver.service';
+import { ContactResolverService } from './contacts/contact-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/documents', pathMatch: 'full' },
   { path: 'documents', component: DocumentsComponent, children: [
     { path: '', component: DocumentStartComponent },
     { path: 'new', component: DocumentEditComponent },
-    { path: ':id', component: DocumentDetailComponent },
-    { path: ':id/edit', component: DocumentEditComponent }
+    { path: ':id', component: DocumentDetailComponent, resolve: [DocumentResolverService]},
+    { path: ':id/edit', component: DocumentEditComponent, resolve: [DocumentResolverService]}
   ] },
   { path: 'messages', component: MessageListComponent },
   { path: 'contacts', component: ContactsComponent, children: [
     { path: '', component: ContactStartComponent },
     { path: 'new', component: ContactEditComponent },
-    { path: ':id', component: ContactDetailComponent },
-    { path: ':id/edit', component: ContactEditComponent }
+    { path: ':id', component: ContactDetailComponent, resolve: [ContactResolverService] },
+    { path: ':id/edit', component: ContactEditComponent, resolve: [ContactResolverService] }
   ] }
 ];
 

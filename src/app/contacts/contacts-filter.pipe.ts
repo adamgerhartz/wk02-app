@@ -13,7 +13,7 @@ export class ContactsFilterPipe implements PipeTransform {
     }
     const resultArray = [];
     for (const contact of contacts) {
-      if (contact.name.toLowerCase().includes(term)) {
+      if (contact.name.toLowerCase().includes(term.toLowerCase())) {
         resultArray.push(contact);
       }
     }

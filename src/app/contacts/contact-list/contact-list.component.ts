@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
+import { DataStorageService } from '../../shared/data-storage.service';
 
 @Component({
   selector: 'cms-contact-list',
@@ -20,13 +21,15 @@ import { ContactService } from '../contact.service';
 export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[];
   subscription: Subscription;
+  term: string = '';
 
   constructor(private contactService: ContactService,
+    private dataStorageService: DataStorageService,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.contacts = this.contactService.getContacts();
+    this.dataStorageService.fetchContacts().subscribe();
     this.subscription = this.contactService.contactListChangedEvent
       .subscribe(
         (contacts: Contact[]) => {
@@ -41,5 +44,9 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   onNewContact() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  search(value: string) {
+    this.term = value;
   }
 }
