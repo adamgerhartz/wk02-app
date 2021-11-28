@@ -45,8 +45,8 @@ export class ContactEditComponent implements OnInit {
       );
   }
 
-  onCancel() {
-    this.router.navigate(['../../'], {relativeTo: this.route});
+  navigate(route: string) {
+    this.router.navigate([route], {relativeTo: this.route});
   }
 
   async onSubmit(form: NgForm) {
@@ -61,10 +61,11 @@ export class ContactEditComponent implements OnInit {
     );
     if (this.editMode) {
       await this.contactService.updateContact(this.originalContact, newContact);
+      this.navigate('../../')
     } else {
       await this.contactService.addContact(newContact);
+      this.navigate('../')
     }
-    this.onCancel();
   }
 
   isInvalidContact(newContact: Contact) {
