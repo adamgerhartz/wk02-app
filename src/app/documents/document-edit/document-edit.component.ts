@@ -41,7 +41,7 @@ export class DocumentEditComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
   onSubmit(form: NgForm) {

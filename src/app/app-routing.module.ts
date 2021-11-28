@@ -20,14 +20,14 @@ import { MessageResolverService } from './messages/message-resolver.service';
 const appRoutes: Routes = [
   { path: '', redirectTo: '/documents', pathMatch: 'full' },
   { path: 'documents', component: DocumentsComponent, children: [
-    { path: '', component: DocumentStartComponent },
+    { path: '', component: DocumentStartComponent, resolve: [DocumentResolverService] },
     { path: 'new', component: DocumentEditComponent },
     { path: ':id', component: DocumentDetailComponent, resolve: [DocumentResolverService]},
     { path: ':id/edit', component: DocumentEditComponent, resolve: [DocumentResolverService]}
   ] },
   { path: 'messages', component: MessageListComponent, resolve: [MessageResolverService] },
   { path: 'contacts', component: ContactsComponent, children: [
-    { path: '', component: ContactStartComponent },
+    { path: '', component: ContactStartComponent, resolve: [ContactResolverService] },
     { path: 'new', component: ContactEditComponent },
     { path: ':id', component: ContactDetailComponent, resolve: [ContactResolverService] },
     { path: ':id/edit', component: ContactEditComponent, resolve: [ContactResolverService] }

@@ -46,10 +46,10 @@ export class ContactEditComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     const value = form.value;
     const newContact = new Contact(
       value['id'],
@@ -60,9 +60,9 @@ export class ContactEditComponent implements OnInit {
       value['group'] !== 'undefinded' ? this.groupContacts : null
     );
     if (this.editMode) {
-      this.contactService.updateContact(this.originalContact, newContact);
+      await this.contactService.updateContact(this.originalContact, newContact);
     } else {
-      this.contactService.addContact(newContact);
+      await this.contactService.addContact(newContact);
     }
     this.onCancel();
   }

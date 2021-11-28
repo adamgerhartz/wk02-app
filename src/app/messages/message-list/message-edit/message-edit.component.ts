@@ -11,7 +11,7 @@ import { MessageService } from '../../message.service';
 export class MessageEditComponent implements OnInit {
   @ViewChild('subject', {static: true}) subject: ElementRef;
   @ViewChild('msgText', {static: true}) msgText: ElementRef;
-  currentSenderId: string = "19";
+  currentSenderId: string = "101";
 
   constructor(private messageService: MessageService) {}
 

@@ -18,7 +18,7 @@ import { WindRefService } from '../../wind-ref.service';
   styleUrls: ['./document-detail.component.css']
 })
 export class DocumentDetailComponent implements OnInit {
-  document: Document;
+  documentEl: Document;
   nativeWindow: any;
 
   constructor(private documentService: DocumentService,
@@ -33,19 +33,20 @@ export class DocumentDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           const id = params['id'];
-          this.document = this.documentService.getDocument(id);
+          this.documentEl = this.documentService.getDocument(id);
         }
       );
   }
 
   onView() {
-    if (this.document.url) {
-      this.nativeWindow.open(this.document.url);
+    if (this.documentEl.url) {
+      this.nativeWindow.open(this.documentEl.url);
     }
+    console.log(this.documentEl.description);
   }
 
   onDelete() {
-    this.documentService.deleteDocument(this.document);
+    this.documentService.deleteDocument(this.documentEl);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 

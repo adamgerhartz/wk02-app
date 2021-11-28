@@ -57,15 +57,17 @@ export class DocumentService {
       return;
     }
 
-    console.log(document);
-    const pos: number = this.documents.indexOf(document);
+    const pos: number = this.documents.findIndex(d => d.id === document.id);
     if (pos < 0) {
       return;
     }
 
-    this.documents.splice(pos, 1);
-    console.log(this.documents);
-    this.storeDocuments();
+    this.http
+      .delete('http://localhost:3000/documents/' + document.id)
+      .subscribe(response => {
+        this.documents.splice(pos, 1);
+        this.documentListChangedEvent.next(this.documents.slice());
+      });
   }
 
   private getMaxId(): number {
@@ -86,10 +88,18 @@ export class DocumentService {
       return;
     }
 
-    this.maxDocumentId++;
-    newDocument.id = this.maxDocumentId.toString();
-    this.documents.push(newDocument);
-    this.storeDocuments();
+    newDocument.id = "";
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
+
+    this.http
+      .post<{ message: string, document: Document }>(
+        "http://localhost:3000/documents",
+        newDocument,
+        { headers: headers })
+      .subscribe(responseData => {
+        this.documents.push(responseData.document);
+        this.documentListChangedEvent.next(this.documents.slice());
+      });
   }
 
   updateDocument(originalDocument: Document, newDocument: Document) {
@@ -97,13 +107,23 @@ export class DocumentService {
       return;
     }
 
-    const pos: number = this.documents.indexOf(originalDocument);
+    const pos: number = this.documents.findIndex(d => d.id === originalDocument.id);
     if (pos < 0) {
       return;
     }
 
     newDocument.id = originalDocument.id;
-    this.documents[pos] = newDocument;
-    this.storeDocuments();
+
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
+
+    this.http
+      .put(
+        'http://localhost:3000/documents/' + originalDocument.id,
+        newDocument,
+        { headers: headers })
+      .subscribe(response => {
+        this.documents[pos] = newDocument;
+        this.documentListChangedEvent.next(this.documents.slice());
+      })
   }
 }

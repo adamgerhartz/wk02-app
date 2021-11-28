@@ -21,8 +21,15 @@ export class DataStorageService {
 
   fetchMessages() {
     return this.http
-      .get<Message[]>('https://cms-wdd430-f0c1c-default-rtdb.firebaseio.com/messages.json')
+      .get<{ message: string, messages: Message[] }>('http://localhost:3000/messages')
       .pipe(
+        map((responseData: any) => {
+          return responseData.messages.map(message => {
+            return {
+              ...message
+            }
+          })
+        }),
         tap((messages: Message[]) => {
           this.messageService.setMessages(messages);
         })
@@ -31,10 +38,10 @@ export class DataStorageService {
 
   fetchContacts() {
     return this.http
-      .get<Contact[]>('https://cms-wdd430-f0c1c-default-rtdb.firebaseio.com/contacts.json')
+      .get<{ message: string, contacts: Contact[] }>('http://localhost:3000/contacts')
       .pipe(
-        map(contacts => {
-          return contacts.map(contact => {
+        map(responseData => {
+          return responseData.contacts.map(contact => {
             return {
               ...contact,
               group: contact.group ? contact.group : []
@@ -50,14 +57,14 @@ export class DataStorageService {
 
   fetchDocuments() {
     return this.http
-      .get<Document[]>('https://cms-wdd430-f0c1c-default-rtdb.firebaseio.com/documents.json')
+      .get<{ message: string, documents: Document[] }>('http://localhost:3000/documents')
       .pipe(
-        map(documents => {
-          return documents.map(document => {
+        map(responseData => {
+          return responseData.documents.map(documentEl => {
             return {
-              ...document,
-              children: document.children ? document.children : [],
-              description: document.description ? document.description : ''
+              ...documentEl,
+              description: documentEl.description ? documentEl.description : "",
+              children: documentEl.children ? documentEl.children : []
             };
           });
         }),
