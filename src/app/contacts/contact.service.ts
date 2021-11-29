@@ -15,31 +15,13 @@ export class ContactService {
   constructor(private http: HttpClient) { }
 
   setContacts(contacts: Contact[]) {
-    console.log("CONTACTS" + this.contacts);
     this.contacts = contacts;
-    //this.maxContactId = this.getMaxId();
-    //this.contacts.sort();
     this.contactListChangedEvent.next(this.contacts.slice());
   }
 
+  // http get requests handled in ../shared/data-storage-service.ts
   getContacts(): Contact[] {
     return this.contacts.slice();
-  }
-
-  storeContacts() {
-    this.http
-      .put(
-        'https://cms-wdd430-f0c1c-default-rtdb.firebaseio.com/contacts.json',
-        JSON.stringify(this.contacts),
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        }
-      )
-      .subscribe(() => {
-        this.contactListChangedEvent.next(this.contacts.slice());
-      });
   }
 
   getContact(id: string): Contact {
@@ -68,19 +50,6 @@ export class ContactService {
         this.contactListChangedEvent.next(this.contacts.slice());
       })
   }
-
-  /*private getMaxId(): number {
-    let maxId: number = 1;
-
-    for (const contact of this.contacts) {
-      const currentId = parseInt(contact.id);
-      if (currentId > maxId) {
-        maxId = currentId;
-      }
-    }
-
-    return maxId;
-  }*/
 
   addContact(newContact: Contact) {
     if (!newContact) {

@@ -18,29 +18,12 @@ export class DocumentService {
 
   setDocuments(documents: Document[]) {
     this.documents = documents;
-    this.maxDocumentId = this.getMaxId();
-    this.documents.sort();
     this.documentListChangedEvent.next(this.documents.slice());
   }
 
+  // http get requests handled in ../shared/data-storage-service.ts
   getDocuments(): Document[] {
     return this.documents.slice();
-  }
-
-  storeDocuments() {
-    this.http
-      .put(
-        'https://cms-wdd430-f0c1c-default-rtdb.firebaseio.com/documents.json',
-        JSON.stringify(this.documents),
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        }
-      )
-      .subscribe(() => {
-        this.documentListChangedEvent.next(this.documents.slice());
-      });
   }
 
   getDocument(id: string): Document {
@@ -68,19 +51,6 @@ export class DocumentService {
         this.documents.splice(pos, 1);
         this.documentListChangedEvent.next(this.documents.slice());
       });
-  }
-
-  private getMaxId(): number {
-    let maxId: number = 1;
-
-    for (const document of this.documents) {
-      const currentId = parseInt(document.id);
-      if (currentId > maxId) {
-        maxId = currentId;
-      }
-    }
-
-    return maxId;
   }
 
   addDocument(newDocument: Document) {

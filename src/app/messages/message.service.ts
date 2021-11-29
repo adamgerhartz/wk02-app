@@ -15,28 +15,12 @@ export class MessageService {
 
   setMessages(messages: Message[]) {
     this.messages = messages;
-    this.maxDocumentId = this.getMaxId();
     this.messageChangedEvent.next(this.messages.slice());
   }
 
+  // http get requests handled in ../shared/data-storage-service.ts
   getMessages(): Message[] {
     return this.messages.slice();
-  }
-
-  storeMessages() {
-    /*this.http
-      .put(
-        'https://cms-wdd430-f0c1c-default-rtdb.firebaseio.com/messages.json',
-        JSON.stringify(this.messages),
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        }
-      )
-      .subscribe(() => {
-        this.messageChangedEvent.next(this.messages.slice());
-      });*/
   }
 
   getMessage(id: string): Message {
@@ -46,19 +30,6 @@ export class MessageService {
       }
     }
     return null;
-  }
-
-  private getMaxId() {
-    let maxId: number = 1;
-
-    for (const message of this.messages) {
-      const currentId = parseInt(message.id);
-      if (currentId > maxId) {
-        maxId = currentId;
-      }
-    }
-
-    return maxId;
   }
 
   addMessage(newMessage: Message) {
